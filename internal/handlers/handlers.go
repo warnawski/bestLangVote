@@ -1,6 +1,18 @@
 package handlers
 
-import "net/http"
+import (
+	"fmt"
+	"net/http"
+)
+
+func StartServer() error {
+	fmt.Printf("Сервер запущен")
+	err := http.ListenAndServe(":8080", nil)
+	if err != nil {
+		return fmt.Errorf("Ошибка запуска Сервера", err)
+	}
+	return nil
+}
 
 func StaticContentLoader() {
 	fs := http.FileServer(http.Dir("static"))
