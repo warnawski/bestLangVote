@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Голосование: Лучший Язык Программирования</title>
+  <!-- Подключаем иконки Font Awesome (для красоты) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Подключаем шрифты Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="static/style/main/dist/output.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="confetti-container"></div>
+
+  <header class="site-header">
+    <div class="header-content">
+      <div class="logo">BestLangVote</div>
+      <div class="header-actions"> <!-- Контейнер для иконок -->
+        <!-- Заменена кнопка на иконку-ссылку -->
+        <a href="/result" class="results-icon-link" title="Показать результаты">
+          <i class="fas fa-chart-bar"></i>
+        </a>
+        <button class="theme-switcher" id="theme-toggle" aria-label="Переключить тему">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 class="main-title">Какой язык программирования лучший? Голосуй!</h1>
+
+    <div class="voting-grid" id="votingGrid">
+      <!-- ... (все карточки языков остаются без изменений) ... -->
+      <!-- Python -->
+      <div class="language-card" data-lang="python"><img
+          src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python Logo"
+          class="lang-logo" loading="lazy">
+        <h2 class="lang-title">Python</h2><span class="vote-count">Голосов: <strong
+            id="votes-python">0</strong></span><button class="vote-button" data-target="python">Голосовать!</button>
+      </div>
+      <!-- JavaScript -->
+      <div class="language-card" data-lang="javascript"><img
+          src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png" alt="JavaScript Logo"
+          class="lang-logo" loading="lazy">
+        <h2 class="lang-title">JavaScript</h2><span class="vote-count">Голосов: <strong
+            id="votes-javascript">0</strong></span><button class="vote-button"
+          data-target="javascript">Голосовать!</button>
+      </div>
+      <!-- Java -->
+      <div class="language-card" data-lang="java"><img src="https://www.vectorlogo.zone/logos/java/java-icon.svg"
+          alt="Java Logo" class="lang-logo" loading="lazy">
+        <h2 class="lang-title">Java</h2><span class="vote-count">Голосов: <strong
+            id="votes-java">0</strong></span><button class="vote-button" data-target="java">Голосовать!</button>
+      </div>
+      <!-- C# -->
+      <div class="language-card" data-lang="csharp"><img
+          src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Logo_C_sharp.svg" alt="C# Logo" class="lang-logo"
+          loading="lazy">
+        <h2 class="lang-title">C#</h2><span class="vote-count">Голосов: <strong
+            id="votes-csharp">0</strong></span><button class="vote-button" data-target="csharp">Голосовать!</button>
+      </div>
+      <!-- Rust -->
+      <div class="language-card" data-lang="rust"><img
+          src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Rust_programming_language_black_logo.svg"
+          alt="Rust Logo" class="lang-logo" loading="lazy">
+        <h2 class="lang-title">Rust</h2><span class="vote-count">Голосов: <strong
+            id="votes-rust">0</strong></span><button class="vote-button" data-target="rust">Голосовать!</button>
+      </div>
+      <!-- Go -->
+      <div class="language-card" data-lang="go"><img
+          src="https://upload.wikimedia.org/wikipedia/commons/0/05/Go_Logo_Blue.svg" alt="Go Logo" class="lang-logo"
+          loading="lazy">
+        <h2 class="lang-title">Go</h2><span class="vote-count">Голосов: <strong id="votes-go">0</strong></span><button
+          class="vote-button" data-target="go">Голосовать!</button>
+      </div>
+      <!-- C++ -->
+      <div class="language-card" data-lang="cplusplus"><img
+          src="https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg" alt="C++ Logo"
+          class="lang-logo" loading="lazy">
+        <h2 class="lang-title">C++</h2><span class="vote-count">Голосов: <strong
+            id="votes-cplusplus">0</strong></span><button class="vote-button"
+          data-target="cplusplus">Голосовать!</button>
+      </div>
+      <!-- Swift -->
+      <div class="language-card" data-lang="swift"><img
+          src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Swift_logo.svg" alt="Swift Logo" class="lang-logo"
+          loading="lazy">
+        <h2 class="lang-title">Swift</h2><span class="vote-count">Голосов: <strong
+            id="votes-swift">0</strong></span><button class="vote-button" data-target="swift">Голосовать!</button>
+      </div>
+      <!-- Kotlin -->
+      <div class="language-card" data-lang="kotlin"><img
+          src="https://upload.wikimedia.org/wikipedia/commons/7/74/Kotlin_Icon.svg" alt="Kotlin Logo" class="lang-logo"
+          loading="lazy">
+        <h2 class="lang-title">Kotlin</h2><span class="vote-count">Голосов: <strong
+            id="votes-kotlin">0</strong></span><button class="vote-button" data-target="kotlin">Голосовать!</button>
+      </div>
+      <!-- PHP -->
+      <div class="language-card" data-lang="php"><img
+          src="https://upload.wikimedia.org/wikipedia/commons/2/27/PHP-logo.svg" alt="PHP Logo" class="lang-logo"
+          loading="lazy">
+        <h2 class="lang-title">PHP</h2><span class="vote-count">Голосов: <strong id="votes-php">0</strong></span><button
+          class="vote-button" data-target="php">Голосовать!</button>
+      </div>
+      <!-- Ruby -->
+      <div class="language-card" data-lang="ruby"><img
+          src="https://upload.wikimedia.org/wikipedia/commons/7/73/Ruby_logo.svg" alt="Ruby Logo" class="lang-logo"
+          loading="lazy">
+        <h2 class="lang-title">Ruby</h2><span class="vote-count">Голосов: <strong
+            id="votes-ruby">0</strong></span><button class="vote-button" data-target="ruby">Голосовать!</button>
+      </div>
+      <!-- Assembler -->
+      <div class="language-card" data-lang="assembler"><img src="https://www.svgrepo.com/show/475651/cpu-chip.svg"
+          alt="Assembler Icon" class="lang-logo" loading="lazy" style="filter: invert(var(--asm-invert, 0));">
+        <h2 class="lang-title">Assembler</h2><span class="vote-count">Голосов: <strong
+            id="votes-assembler">0</strong></span><button class="vote-button"
+          data-target="assembler">Голосовать!</button>
+        <style>
+          body.dark-mode .language-card[data-lang="assembler"] .lang-logo {
+            filter: var(--current-logo-filter) invert(1);
+          }
+        </style>
+      </div>
+
+    </div>
+  </main>
+
+
+  <footer class="site-footer">
+    © 2025 Голосование за Лучший ЯП. 💗 Шанхай соси .
+  </footer>
+
+  <script src="static/style/main/script.js"></script>
+</body>
+
+</html>

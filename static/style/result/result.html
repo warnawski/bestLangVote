@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Результаты Голосования</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="static/style/result/dist/output.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="header-content">
+      <div class="logo">BestLangVote</div> <!-- Анимация добавлена через CSS -->
+      <div class="header-actions">
+        <a href="index.html" class="back-icon-link" title="К голосованию">
+          <i class="fas fa-arrow-left"></i>
+        </a>
+        <button class="theme-switcher" id="theme-toggle" aria-label="Переключить тему">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 class="results-title">Результаты Голосования</h1> <!-- Анимация добавлена через CSS -->
+
+    <div id="resultsList">
+      <!-- Результаты будут загружены сюда JavaScript-ом -->
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    © 2025 Голосование за Лучший ЯП. 💗 Шанхай соси .
+  </footer>
+</body>
+
+</html>
