@@ -1,13 +1,9 @@
 package main
 
 import (
-	"voteSite/internal/handlers"
+	"voteSite/internal/app"
 )
 
 func main() {
-	defer handlers.StartServer()
-
-	handlers.StaticContentLoader()
-	handlers.MainPagePoint()
-	handlers.ResultPagePoint()
+	app.Start()
 }

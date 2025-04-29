@@ -7,10 +7,14 @@ import (
 
 type PostgresqlDriver struct{}
 
-func (psql *PostgresqlDriver) Connect(cfg DBConfig) (*sql.DB, error) {
-	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
-		cfg.Host, cfg.Port, cfg.User, cfg.Password, cfg.DBName, cfg.SSLMode)
-	return sql.Open("postgres", dsn)
+func (psql *PostgresqlDriver) Connect(cfg DBConfig, dbType string) (*sql.DB, error) {
+	dsn := fmt.Sprintf("%s:%s@%s:%s/%s?sslmode=%s",
+		cfg.User, cfg.Password, cfg.Host, cfg.Port, cfg.DBName, cfg.SSLMode)
+	db, err := sql.Open(dbType, dsn)
+	if err != nil {
+		return nil, fmt.Errorf("Ошибка", err)
+	}
+	return db, nil
 }
 
 func (psql *PostgresqlDriver) GetPlaceholder(index int) string {
