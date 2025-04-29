@@ -1,12 +1,5 @@
 package driver
 
-import "database/sql"
-
-type DatabaseDriver interface {
-	Connect(cfg DBConfig) (*sql.DB, error)
-	GetPlaceholder(index int) string
-}
-
 type DBConfig struct {
 	Host     string
 	Port     string
@@ -14,4 +7,10 @@ type DBConfig struct {
 	Password string
 	DBName   string
 	SSLMode  string
+}
+
+type Database interface {
+	Connect(cfg DBConfig) error
+	SetConfig()
+	Close() error
 }

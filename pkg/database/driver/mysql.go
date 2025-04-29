@@ -40,7 +40,3 @@ func (msql *MysqlDriver) Close() error {
 	}
 	return fmt.Errorf("Ошибка закрытия")
 }
-
-func (msql *MysqlDriver) GetPlaceholder(index int) string {
-	return "?"
-}
