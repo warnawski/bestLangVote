@@ -5,7 +5,6 @@ import (
 
 	"voteSite/pkg/database/config"
 	dr "voteSite/pkg/database/driver"
-	model "voteSite/pkg/models"
 
 	"gorm.io/gorm"
 )
@@ -17,25 +16,16 @@ func ConnectDatabase(cfg config.DBConfig) (*gorm.DB, error) {
 
 	switch cfg.Driver {
 	case "mysql":
-		return nil, fmt.Errorf("Не поддерживается", err)
+		return nil, fmt.Errorf("не поддерживается: %v", err)
 
 	case "postgresql":
 		db, err = dr.ConnectPostgreSQL(cfg)
+		if err != nil {
+			return nil, fmt.Errorf("ошибка подключения к постгресу: %v", err)
+		}
 
 	default:
-		return nil, fmt.Errorf("Ошибка подключения к базе данных")
-	}
-
-	if err != nil {
-		return nil, err
-	}
-
-	err = db.AutoMigrate(
-		&model.User{},
-		&model.Lang{},
-	)
-	if err != nil {
-		return nil, fmt.Errorf("Ошибка миграции", err)
+		return nil, fmt.Errorf("ошибка подключения к базе данных: %v", err)
 	}
 	return db, nil
 }

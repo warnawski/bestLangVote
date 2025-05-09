@@ -4,6 +4,8 @@ import (
 	"fmt"
 	db "voteSite/pkg/database/config"
 
+	model "voteSite/pkg/models"
+
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -14,10 +16,29 @@ func ConnectPostgreSQL(cfg db.DBConfig) (*gorm.DB, error) {
 		DSN:                  dsn,
 		PreferSimpleProtocol: true,
 	}), &gorm.Config{})
+
 	if err != nil {
-		fmt.Errorf("Ошибка подключения к Посгресу", err)
+		return nil, fmt.Errorf("ошибка подключения к Посгресу: %v", err)
+	}
+
+	err = automigrate(db)
+	if err != nil {
 		return nil, err
 	}
 	return db, nil
+}
 
+func automigrate(db *gorm.DB) error {
+	if db == nil {
+		return fmt.Errorf("nil db при миграции")
+	}
+
+	err := db.AutoMigrate(
+		&model.User{},
+		&model.Lang{},
+	)
+	if err != nil {
+		return fmt.Errorf("ошибка миграции: %v", err)
+	}
+	return nil
 }

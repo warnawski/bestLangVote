@@ -1,6 +1,10 @@
 package app
 
 func Run() {
-	dbRun()
-	startServer()
+
+	db, err := dbRun()
+	if err != nil {
+		return
+	}
+	startServer(db)
 }

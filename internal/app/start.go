@@ -3,17 +3,31 @@ package app
 import (
 	"log"
 	"net/http"
+	serv "voteSite/internal/service"
 	"voteSite/pkg/database/config"
 	database "voteSite/pkg/database/init"
+
+	"gorm.io/gorm"
 )
 
-func startServer() error {
+func startServer(db *gorm.DB) error {
 	router := http.NewServeMux()
+
+	router.HandleFunc("/api/get-count", func(w http.ResponseWriter, r *http.Request) {
+		serv.GetCountVoteEnd(w, r, db)
+	})
+
 	fs := http.FileServer(http.Dir("static"))
 	router.Handle("/static/", http.StripPrefix("/static/", fs))
 
+	router.HandleFunc("/result", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "static/style/result/result.html")
+		log.Print("-> result")
+	})
+
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "static/style/main/index.html")
+		log.Print("-> root")
 	})
 
 	server := http.Server{
@@ -29,7 +43,7 @@ func startServer() error {
 	return nil
 }
 
-func dbRun() {
+func dbRun() (*gorm.DB, error) {
 	cfg, err := config.LoadConfig("internal/config/config.yaml")
 	if err != nil {
 		log.Fatal("Ошибка загрузки конфигурации:", err)
@@ -39,5 +53,6 @@ func dbRun() {
 		log.Fatal("Ошибка подключения", err)
 	}
 
-	_ = db
+	log.Print("Успешное подключение к базе данных")
+	return db, nil
 }
