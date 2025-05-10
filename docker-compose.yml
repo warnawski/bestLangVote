@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bestlangvote_app
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./config/config.yaml:/app/config/config.yaml:ro
+    networks:
+      - bestlangvote_network
+
+  caddy:
+    image: caddy:latest
+    container_name: bestlangvote_caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - bestlangvote_network
+    depends_on:
+      - app
+
+volumes:
+  caddy_data:
+  caddy_config:
+
+networks:
+  bestlangvote_network:
+    driver: bridge

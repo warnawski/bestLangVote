@@ -3,6 +3,7 @@ package app
 import (
 	"log"
 	"net/http"
+	"voteSite/internal/middleware"
 	serv "voteSite/internal/service"
 	"voteSite/pkg/database/config"
 	database "voteSite/pkg/database/init"
@@ -12,6 +13,10 @@ import (
 
 func startServer(db *gorm.DB) error {
 	router := http.NewServeMux()
+
+	router.HandleFunc("/api/voted", func(w http.ResponseWriter, r *http.Request) {
+		serv.SendVoteEnd(w, r, db)
+	})
 
 	router.HandleFunc("/api/get-count", func(w http.ResponseWriter, r *http.Request) {
 		serv.GetCountVoteEnd(w, r, db)
@@ -25,10 +30,12 @@ func startServer(db *gorm.DB) error {
 		log.Print("-> result")
 	})
 
-	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "static/style/main/index.html")
-		log.Print("-> root")
-	})
+	router.Handle("/", middleware.EnsureAnonToken(
+		http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			http.ServeFile(w, r, "static/style/main/index.html")
+			log.Print("-> root")
+		}), db,
+	))
 
 	server := http.Server{
 		Addr:    ":8080",

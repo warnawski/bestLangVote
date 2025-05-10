@@ -1,0 +1,5 @@
+best-lang.ru {
+
+    encode gzip zstd
+    reverse_proxy app:8080
+}
